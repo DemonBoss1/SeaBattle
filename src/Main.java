@@ -24,10 +24,14 @@ public class Main {
 
         while(battlefield.numberFilledCells!=0) {
             battlefield.printBattlefield();
-            position = in.next();
-            i = SetIndex(position);
-            j = in.nextInt();
-            System.out.println(i + " " + j);
+            try {
+                position = in.next();
+                i = SetIndex(position);
+                j = in.nextInt();
+                System.out.println(i + " " + j);
+            }catch (Exception e){
+                System.out.println("Error");
+            }
         }
 
     }
