@@ -20,10 +20,9 @@ public class Main {
         Scanner in = new Scanner(System.in);
         String position;
         Battlefield battlefield = new Battlefield();
-        battlefield.createBattlefield();
 
         while(battlefield.numberFilledCells!=0) {
-            battlefield.printBattlefield();
+            battlefield.printShootingMap();
             try {
                 position = in.next();
                 i = SetIndex(position);

@@ -2,7 +2,14 @@ import java.lang.reflect.Constructor;
 
 public class Battlefield {
     public int[][] battlefield = new int[10][10];
+    public char[][] shootingMap = new char[10][10];
     public int numberFilledCells=0;
+    Battlefield() {
+        createBattlefield();
+        for (int i = 0; i < 10; i++)
+            for (int j = 0; j < 10; j++)
+                shootingMap[i][j] = '~';
+    }
     public void createBattlefield(){
         createChip(1, 4);
         createChip(2, 3);
@@ -69,6 +76,13 @@ public class Battlefield {
         for(int i=0;i<10;i++) {
             for (int j = 0; j < 10; j++)
                 System.out.print(battlefield[i][j] + "\t");
+            System.out.println();
+        }
+    }
+    public void printShootingMap(){
+        for(int i=0;i<10;i++) {
+            for (int j = 0; j < 10; j++)
+                System.out.print(shootingMap[i][j] + "\t");
             System.out.println();
         }
     }
