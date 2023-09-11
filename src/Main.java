@@ -7,7 +7,11 @@ public class Main {
         Battlefield battlefield = new Battlefield();
         battlefield.createBattlefield();
 
-        battlefield.printBattlefield();
+        while(battlefield.numberFilledCells!=0) {
+            battlefield.printBattlefield();
+            position = in.nextLine();
+            System.out.println(position);
+        }
 
     }
 }
