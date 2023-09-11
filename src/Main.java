@@ -22,17 +22,18 @@ public class Main {
         Battlefield battlefield = new Battlefield();
 
         while(battlefield.numberFilledCells!=0) {
+            System.out.println();
             battlefield.printShootingMap();
             try {
                 position = in.next();
                 i = SetIndex(position);
                 j = in.nextInt();
-                System.out.println(i + " " + j);
+                battlefield.Shot(i, j-1);
             }catch (Exception e){
                 System.out.println("Error");
             }
         }
-
+        System.out.println("You win!!!");
     }
 }
 
