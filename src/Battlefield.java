@@ -88,9 +88,17 @@ public class Battlefield {
         }
     }
     public void printShootingMap(){
-        for(int i=0;i<10;i++) {
-            for (int j = 0; j < 10; j++)
-                System.out.print(shootingMap[i][j] + "\t");
+        char[] words = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+        for(int i=-1;i<10;i++) {
+            for (int j = -1; j < 10; j++)
+                if(i==-1){
+                    if(j==-1)System.out.print(" \t");
+                    else System.out.print(j + "\t");
+                }
+            else {
+                if(j==-1) System.out.print(words[i] + "\t");
+                else System.out.print(shootingMap[i][j] + "\t");
+                }
             System.out.println();
         }
     }

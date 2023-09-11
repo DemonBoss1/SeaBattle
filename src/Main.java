@@ -22,8 +22,8 @@ public class Main {
         Battlefield battlefield = new Battlefield();
 
         while(battlefield.numberFilledCells!=0) {
-            System.out.println();
             battlefield.printShootingMap();
+            System.out.println();
             try {
                 position = in.next();
                 i = SetIndex(position);
