@@ -23,7 +23,6 @@ public class Main {
 
         while(battlefield.numberFilledCells!=0) {
             battlefield.printShootingMap();
-            System.out.println();
             try {
                 position = in.next();
                 i = SetIndex(position);

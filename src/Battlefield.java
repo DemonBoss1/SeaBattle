@@ -82,13 +82,12 @@ public class Battlefield {
         else if (battlefield[i][j]==0) shootingMap[i][j]='O';
     }
     public void printBattlefield(){
-        for(int i=0;i<10;i++) {
-            for (int j = 0; j < 10; j++)
-                System.out.print(battlefield[i][j] + "\t");
-            System.out.println();
-        }
+        printMap(true);
     }
     public void printShootingMap(){
+        printMap(false);
+    }
+    private void printMap(boolean map){
         char[] words = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
         for(int i=-1;i<10;i++) {
             for (int j = -1; j < 10; j++)
@@ -96,11 +95,15 @@ public class Battlefield {
                     if(j==-1)System.out.print(" \t");
                     else System.out.print(j+1 + "\t");
                 }
-            else {
-                if(j==-1) System.out.print(words[i] + "\t");
-                else System.out.print(shootingMap[i][j] + "\t");
+                else {
+                    if(j==-1) System.out.print(words[i] + "\t");
+                    else {
+                        if(map) System.out.print(battlefield[i][j] + "\t");
+                        else System.out.print(shootingMap[i][j] + "\t");
+                    }
                 }
             System.out.println();
         }
+        System.out.println();
     }
 }
