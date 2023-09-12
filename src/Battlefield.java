@@ -75,10 +75,11 @@ public class Battlefield {
     public void Shot(int i, int j){
         if(i==-1||j==-1) return;
         if(battlefield[i][j]==1){
+            battlefield[i][j]=8;
             numberFilledCells--;
             shootingMap[i][j]='X';
         }
-        else shootingMap[i][j]='O';
+        else if (battlefield[i][j]==0) shootingMap[i][j]='O';
     }
     public void printBattlefield(){
         for(int i=0;i<10;i++) {
