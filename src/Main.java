@@ -32,7 +32,9 @@ public class Main {
             }catch (Exception e){
                 System.out.println("Error");
             }
-        }
+         }
+        battlefield.printBattlefield();
+        battlefield.printShootingMap();
         System.out.println("You win!!!");
     }
 }

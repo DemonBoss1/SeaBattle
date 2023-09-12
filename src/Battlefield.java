@@ -93,7 +93,7 @@ public class Battlefield {
             for (int j = -1; j < 10; j++)
                 if(i==-1){
                     if(j==-1)System.out.print(" \t");
-                    else System.out.print(j + "\t");
+                    else System.out.print(j+1 + "\t");
                 }
             else {
                 if(j==-1) System.out.print(words[i] + "\t");
