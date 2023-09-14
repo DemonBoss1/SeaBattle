@@ -25,8 +25,8 @@ public class Main {
             battlefield.printShootingMap();
             try {
                 position = in.next();
-                i = SetIndex(position);
-                j = in.nextInt();
+                i = SetIndex(String.valueOf(position.charAt(0)));
+                j = Integer.parseInt(position.substring(1));
                 battlefield.Shot(i, j-1);
             }catch (Exception e){
                 System.out.println("Error");
