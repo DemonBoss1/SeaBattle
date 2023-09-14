@@ -1,7 +1,7 @@
 import java.lang.reflect.Constructor;
 
 public class Battlefield {
-    public int[][] battlefield = new int[10][10];
+    public Ship[][] battlefield = new Ship[10][10];
     public char[][] shootingMap = new char[10][10];
     public int numberFilledCells=0;
     Battlefield() {
@@ -23,21 +23,21 @@ public class Battlefield {
         if(i==9) i_2=i; else i_2=i+1;
         if(j==0) j_1=j; else j_1=j-1;
         if(j==9) j_2=j; else j_2=j+1;
-        if ((battlefield[i_1][j_1]==0) && (battlefield[i][j_1]==0) && (battlefield[i_2][j_1]==0) &&
-                (battlefield[i_1][j]==0) && (battlefield[i_2][j]==0) &&
-                (battlefield[i_1][j_2]==0) && (battlefield[i][j_2]==0) && (battlefield[i_2][j_2]==0))
+        if ((battlefield[i_1][j_1]==null) && (battlefield[i][j_1]==null) && (battlefield[i_2][j_1]==null) &&
+                (battlefield[i_1][j]==null) && (battlefield[i_2][j]==null) &&
+                (battlefield[i_1][j_2]==null) && (battlefield[i][j_2]==null) && (battlefield[i_2][j_2]==null))
             return true;
         return false;
 
     }
-    boolean createSizeChip(int sizeChip, boolean vertical, int i, int j){
+    boolean createSizeChip(int sizeChip, boolean vertical, int i, int j, Ship ship){
         if(sizeChip==0) return true;
         if(vertical){
             if(i==9) return false;
             i++;
             if (possibilityParking(i,j))
-                if(createSizeChip(sizeChip-1, vertical, i, j)) {
-                    battlefield[i][j] = 1;
+                if(createSizeChip(sizeChip-1, vertical, i, j, ship)) {
+                    battlefield[i][j] = ship;
                     numberFilledCells++;
                     return true;
                 }
@@ -45,12 +45,13 @@ public class Battlefield {
         else{
             if(j==9) return false;
             j++;
-            if (possibilityParking(i,j))
-                if(createSizeChip(sizeChip-1, vertical, i, j)) {
-                    battlefield[i][j] = 1;
+            if (possibilityParking(i,j)) {
+                if (createSizeChip(sizeChip - 1, vertical, i, j, ship)) {
+                    battlefield[i][j] = ship;
                     numberFilledCells++;
                     return true;
                 }
+            }
         }
         return false;
     }
@@ -64,22 +65,24 @@ public class Battlefield {
             }
             int i = (int) (Math.random() * 10);
             int j = (int) (Math.random() * 10);
-            if (possibilityParking(i,j))
-                if(createSizeChip(sizeChip-1, vertical, i, j)) {
-                    battlefield[i][j] = 1;
+            if (possibilityParking(i,j)) {
+                Ship newShip = new Ship(this, i, j);
+                if (createSizeChip(sizeChip - 1, vertical, i, j, newShip)) {
+                    battlefield[i][j] = newShip;
                     numberFilledCells++;
                     countNavy--;
                 }
+            }
         }
     }
     public void Shot(int i, int j){
         if(i==-1||j==-1) return;
-        if(battlefield[i][j]==1){
-            battlefield[i][j]=8;
+        if(battlefield[i][j]!=null){
+            //battlefield[i][j]=8;
             numberFilledCells--;
             shootingMap[i][j]='X';
         }
-        else if (battlefield[i][j]==0) shootingMap[i][j]='O';
+        else if (battlefield[i][j]==null) shootingMap[i][j]='O';
     }
     public void printBattlefield(){
         printMap(true);
