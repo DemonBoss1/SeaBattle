@@ -82,10 +82,26 @@ public class Battlefield {
         if(battlefield[i][j]!=null){
             //battlefield[i][j]=8;
             battlefield[i][j].lengthReduction(i, j);
+            if( battlefield[i][j].length==0)shootingAroundTheShip(i, j);
             numberFilledCells--;
             shootingMap[i][j]='X';
         }
         else if (battlefield[i][j]==null) shootingMap[i][j]='O';
+    }
+    void shootingAroundTheShip(int i, int j){
+        battlefield[i][j]=null;
+        if(i-1>=0&&j-1>=0)shootChoice(i-1,j-1);
+        if(i-1>=0)shootChoice(i-1,j);
+        if(i-1>=0&&j+1<10)shootChoice(i-1,j+1);
+        if(j-1>=0)shootChoice(i,j-1);
+        if(j+1<10)shootChoice(i,j+1);
+        if(i+1<10&&j-1>=0)shootChoice(i+1,j-1);
+        if(i+1<10)shootChoice(i+1,j);
+        if(i+1<10&&j+1<10)shootChoice(i+1,j+1);
+    }
+    void shootChoice(int i, int j){
+        if (battlefield[i][j]!=null) shootingAroundTheShip(i, j);
+        else if(shootingMap[i][j]=='~') Shot(i, j);
     }
     public void printBattlefield(){
         printMap(true);
