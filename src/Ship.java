@@ -9,6 +9,18 @@ public class Ship {
         ships.add(new Position(i, j));
         length++;
     }
+    public void lengthIncrease(int i, int j){
+        ships.add(new Position(i, j));
+        length++;
+    }
+    public void lengthReduction(int i, int j){
+        for(int k=0; k<ships.size(); k++)
+            if(ships.get(k).x==j&&ships.get(k).y==i) {
+                ships.remove(k);
+                length--;
+                if(length==0)System.out.println("Потопил");
+            }
+    }
 
 }
 class Position{

@@ -37,6 +37,7 @@ public class Battlefield {
             i++;
             if (possibilityParking(i,j))
                 if(createSizeChip(sizeChip-1, vertical, i, j, ship)) {
+                    ship.lengthIncrease(i,j);
                     battlefield[i][j] = ship;
                     numberFilledCells++;
                     return true;
@@ -47,6 +48,7 @@ public class Battlefield {
             j++;
             if (possibilityParking(i,j)) {
                 if (createSizeChip(sizeChip - 1, vertical, i, j, ship)) {
+                    ship.lengthIncrease(i,j);
                     battlefield[i][j] = ship;
                     numberFilledCells++;
                     return true;
@@ -79,6 +81,7 @@ public class Battlefield {
         if(i==-1||j==-1) return;
         if(battlefield[i][j]!=null){
             //battlefield[i][j]=8;
+            battlefield[i][j].lengthReduction(i, j);
             numberFilledCells--;
             shootingMap[i][j]='X';
         }
