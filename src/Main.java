@@ -56,7 +56,7 @@ public class Main {
                 String str = battlefield.ShootingMapToString();
                 textArea.setText(str);
                 if(battlefield.numberFilledCells==0){
-                    textArea.setText("You win!!!");
+                    JOptionPane.showMessageDialog(frame, "You win!!!");
                 }
             }
         });
