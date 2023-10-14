@@ -29,6 +29,8 @@ public class Main {
         JLabel attackPosition = new JLabel("Attack position  ");
 
         frame.setSize(1000,300);
+        textArea.setBackground(new Color(0,0,55));
+        textArea.setEnabled(false);
 
         panel.setLayout(new BorderLayout(0, 0));
         panel.add(BorderLayout.NORTH, new JPanel());
@@ -45,6 +47,7 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 int i, j;
                 String position = textField.getText();
+                textField.setText("");
                 try {
                     i = SetIndex(String.valueOf(position.charAt(0)));
                     j = Integer.parseInt(position.substring(1));

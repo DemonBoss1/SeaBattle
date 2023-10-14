@@ -151,7 +151,7 @@ public class Battlefield {
                         else mapStr += shootingMap[i][j] + "\t";
                     }
                 }
-            mapStr += "\n";
+            mapStr += "\n  ";
         }
         mapStr += "\n";
         return mapStr;
