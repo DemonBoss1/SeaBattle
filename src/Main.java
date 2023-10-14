@@ -1,3 +1,7 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -16,25 +20,51 @@ public class Main {
         return -1;
     }
     public static void main(String[] args) {
-        int i, j;
-        Scanner in = new Scanner(System.in);
-        String position;
-        Battlefield battlefield = new Battlefield();
 
-        while(battlefield.numberFilledCells!=0) {
-            battlefield.printShootingMap();
-            try {
-                position = in.next();
-                i = SetIndex(String.valueOf(position.charAt(0)));
-                j = Integer.parseInt(position.substring(1));
-                battlefield.Shot(i, j-1);
-            }catch (Exception e){
-                System.out.println("Error");
+        JFrame frame = new JFrame("Sea battle");
+        JPanel panel = new JPanel();
+        JTextArea textArea = new JTextArea("Hello!");
+        JButton button = new JButton("Shot");
+        JTextField textField = new JTextField();
+        JLabel attackPosition = new JLabel("Attack position");
+
+        frame.setSize(1000,300);
+
+        panel.setLayout(new BorderLayout(0, 0));
+        panel.add(BorderLayout.WEST,attackPosition);
+        panel.add(BorderLayout.CENTER,textField);
+        panel.add(BorderLayout.EAST,button);
+
+        Battlefield battlefield = new Battlefield();
+        textArea.setText(battlefield.ShootingMapToString());
+
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int i, j;
+                String position = textField.getText();
+                try {
+                    i = SetIndex(String.valueOf(position.charAt(0)));
+                    j = Integer.parseInt(position.substring(1));
+                    battlefield.Shot(i, j-1);
+                    System.out.println(i+" "+(j-1));
+                }catch (Exception exception){
+                    textArea.setText("Error");
+                }
+                String str = battlefield.ShootingMapToString();
+                textArea.setText(str);
+                if(battlefield.numberFilledCells==0){
+                    textArea.setText("You win!!!");
+                }
             }
-         }
+        });
         battlefield.printBattlefield();
         battlefield.printShootingMap();
-        System.out.println("You win!!!");
+
+        frame.add(BorderLayout.CENTER,textArea);
+        frame.add(BorderLayout.SOUTH, panel);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
 

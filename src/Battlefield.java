@@ -86,7 +86,7 @@ public class Battlefield {
             numberFilledCells--;
             shootingMap[i][j]='X';
         }
-        else if (battlefield[i][j]==null) shootingMap[i][j]='O';
+        else if (battlefield[i][j]==null && shootingMap[i][j]=='~') shootingMap[i][j]='O';
     }
     void shootingAroundTheShip(int i, int j){
         battlefield[i][j]=null;
@@ -127,5 +127,33 @@ public class Battlefield {
             System.out.println();
         }
         System.out.println();
+    }
+
+    public String BattlefieldToString(){
+        return MapToString(true);
+    }
+    public String ShootingMapToString(){
+        return MapToString(false);
+    }
+    private String MapToString(boolean map){
+        String mapStr = "";
+        char[] words = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+        for(int i=-1;i<10;i++) {
+            for (int j = -1; j < 10; j++)
+                if(i==-1){
+                    if(j==-1)mapStr +=" \t";
+                    else mapStr += j+1 + "\t";
+                }
+                else {
+                    if(j==-1) mapStr += words[i] + "\t";
+                    else {
+                        if(map) mapStr += battlefield[i][j] + "\t";
+                        else mapStr += shootingMap[i][j] + "\t";
+                    }
+                }
+            mapStr += "\n";
+        }
+        mapStr += "\n";
+        return mapStr;
     }
 }
