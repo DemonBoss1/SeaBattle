@@ -26,11 +26,13 @@ public class Main {
         JTextArea textArea = new JTextArea("Hello!");
         JButton button = new JButton("Shot");
         JTextField textField = new JTextField();
-        JLabel attackPosition = new JLabel("Attack position");
+        JLabel attackPosition = new JLabel("Attack position  ");
 
         frame.setSize(1000,300);
 
         panel.setLayout(new BorderLayout(0, 0));
+        panel.add(BorderLayout.NORTH, new JPanel());
+        panel.add(BorderLayout.SOUTH, new JPanel());
         panel.add(BorderLayout.WEST,attackPosition);
         panel.add(BorderLayout.CENTER,textField);
         panel.add(BorderLayout.EAST,button);
@@ -61,6 +63,9 @@ public class Main {
         battlefield.printBattlefield();
         battlefield.printShootingMap();
 
+        frame.add(BorderLayout.NORTH, new JPanel());
+        frame.add(BorderLayout.WEST, new JPanel());
+        frame.add(BorderLayout.EAST, new JPanel());
         frame.add(BorderLayout.CENTER,textArea);
         frame.add(BorderLayout.SOUTH, panel);
         frame.setVisible(true);
