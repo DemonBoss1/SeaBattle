@@ -6,6 +6,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
+    static JFrame frame = new JFrame("Sea battle");
+
     static int SetIndex(String position){
         if(Objects.equals(position, "A")||Objects.equals(position, "a")) return 0;
         if(Objects.equals(position, "B")||Objects.equals(position, "b")) return 1;
@@ -21,38 +23,34 @@ public class Main {
     }
     public static void main(String[] args) {
 
-        JFrame frame = new JFrame("Sea battle");
-        JPanel panel = new JPanel();
         JTextArea textArea = new JTextArea("Hello!");
-        JButton button = new JButton("Shot");
-        JTextField textField = new JTextField();
+
+        JPanel battlefieldInterface = new JPanel();
+        JButton[][] shootingMap = new JButton[10][10];
+
+        JPanel shotPanel = new JPanel();
+        JButton shotButton = new JButton("Shot");
+        JTextField positionField = new JTextField();
         JLabel attackPosition = new JLabel("Attack position  ");
 
-        frame.setSize(1000,300);
+        frame.setSize(500,400);
+
         textArea.setBackground(new Color(0,0,55));
         textArea.setEnabled(false);
-
-        panel.setLayout(new BorderLayout(0, 0));
-        panel.add(BorderLayout.NORTH, new JPanel());
-        panel.add(BorderLayout.SOUTH, new JPanel());
-        panel.add(BorderLayout.WEST,attackPosition);
-        panel.add(BorderLayout.CENTER,textField);
-        panel.add(BorderLayout.EAST,button);
 
         Battlefield battlefield = new Battlefield();
         textArea.setText(battlefield.ShootingMapToString());
 
-        button.addActionListener(new ActionListener() {
+        shotButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int i, j;
-                String position = textField.getText();
-                textField.setText("");
+                String position = positionField.getText();
+                positionField.setText("");
                 try {
                     i = SetIndex(String.valueOf(position.charAt(0)));
                     j = Integer.parseInt(position.substring(1));
                     battlefield.Shot(i, j-1);
-                    System.out.println(i+" "+(j-1));
                 }catch (Exception exception){
                     textArea.setText("Error");
                 }
@@ -66,13 +64,38 @@ public class Main {
         battlefield.printBattlefield();
         battlefield.printShootingMap();
 
+        battlefieldInterface.setLayout(new GridLayout(11,11));
+        char[] chars = {'A','B','C','D','E','F','G','H','I','J'};
+        for(int i=-1;i<10;i++)
+            for(int j=-1;j<10;j++) {
+                if(i==-1){
+                    if(j==-1) battlefieldInterface.add(new JLabel());
+                    else battlefieldInterface.add(new JLabel(chars[j]+"", SwingConstants.CENTER));
+                }
+                else
+                if(j==-1) battlefieldInterface.add(new JLabel(i+"",SwingConstants.CENTER));
+                else{
+                    shootingMap[i][j] = new JButton("~");
+                    battlefieldInterface.add(shootingMap[i][j]);
+                    shootingMap[i][j].addActionListener(new BattlefieldCell(battlefield,shootingMap,i,j));
+                }
+            }
+
+        shotPanel.setLayout(new BorderLayout(0, 0));
+        shotPanel.add(BorderLayout.NORTH, new JPanel());
+        shotPanel.add(BorderLayout.SOUTH, new JPanel());
+        shotPanel.add(BorderLayout.WEST,attackPosition);
+        shotPanel.add(BorderLayout.CENTER,positionField);
+        shotPanel.add(BorderLayout.EAST,shotButton);
+
         frame.add(BorderLayout.NORTH, new JPanel());
         frame.add(BorderLayout.WEST, new JPanel());
         frame.add(BorderLayout.EAST, new JPanel());
-        frame.add(BorderLayout.CENTER,textArea);
-        frame.add(BorderLayout.SOUTH, panel);
+        frame.add(BorderLayout.CENTER,battlefieldInterface);
+        frame.add(BorderLayout.SOUTH, shotPanel);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
 }
 

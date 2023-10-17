@@ -1,14 +1,17 @@
 import java.lang.reflect.Constructor;
 
 public class Battlefield {
-    public Ship[][] battlefield = new Ship[10][10];
-    public char[][] shootingMap = new char[10][10];
+    private Ship[][] battlefield = new Ship[10][10];
+    private char[][] shootingMap = new char[10][10];
     public int numberFilledCells=0;
     Battlefield() {
         createBattlefield();
         for (int i = 0; i < 10; i++)
             for (int j = 0; j < 10; j++)
                 shootingMap[i][j] = '~';
+    }
+    public char getShootingMap(int i, int j){
+        return shootingMap[i][j];
     }
     public void createBattlefield(){
         createChip(1, 4);
@@ -86,7 +89,9 @@ public class Battlefield {
             numberFilledCells--;
             shootingMap[i][j]='X';
         }
-        else if (battlefield[i][j]==null && shootingMap[i][j]=='~') shootingMap[i][j]='O';
+        else if (battlefield[i][j]==null && shootingMap[i][j]=='~'){
+            shootingMap[i][j]='O';
+        }
     }
     void shootingAroundTheShip(int i, int j){
         battlefield[i][j]=null;
