@@ -26,12 +26,30 @@ public class BattlefieldInterface extends JPanel {
                 else{
                     shootingMap[i][j] = new JButton("~");
                     battlefieldInterface.add(shootingMap[i][j]);
-                    shootingMap[i][j].addActionListener(new BattlefieldCell(battlefield,shootingMap,i,j));
+                    shootingMap[i][j].addActionListener(new BattlefieldCell(this,i,j));
                 }
             }
 
         this.setLayout(new BorderLayout());
         this.add(BorderLayout.WEST, leftPanel);
         this.add(battlefieldInterface);
+    }
+    public void Shot(int y, int x){
+        battlefield.Shot(y, x);
+        updateBattlefield();
+        if(battlefield.numberFilledCells==0){
+            JOptionPane.showMessageDialog(Main.frame, "You win!!!");
+        }
+    }
+    private void updateBattlefield(){
+        for (int i = 0; i < 10; i++)
+            for (int j = 0; j < 10; j++) {
+                char ch =battlefield.getShootingMap(i, j);
+                if(ch!='~'){
+                    shootingMap[i][j].setBackground(new Color(0,255,255));
+                    shootingMap[i][j].setEnabled(false);
+                }
+                shootingMap[i][j].setText("" + ch);
+            }
     }
 }
