@@ -23,63 +23,20 @@ public class Main {
     }
     public static void main(String[] args) {
 
-        JTextArea textArea = new JTextArea("Hello!");
-
-        JPanel battlefieldInterface = new JPanel();
-        JButton[][] shootingMap = new JButton[10][10];
-
         JPanel shotPanel = new JPanel();
         JButton shotButton = new JButton("Shot");
         JTextField positionField = new JTextField();
         JLabel attackPosition = new JLabel("Attack position  ");
+        BattlefieldInterface battlefieldInterface = new BattlefieldInterface();
 
         frame.setSize(500,400);
-
-        textArea.setBackground(new Color(0,0,55));
-        textArea.setEnabled(false);
-
-        Battlefield battlefield = new Battlefield();
-        textArea.setText(battlefield.ShootingMapToString());
 
         shotButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int i, j;
-                String position = positionField.getText();
-                positionField.setText("");
-                try {
-                    i = SetIndex(String.valueOf(position.charAt(0)));
-                    j = Integer.parseInt(position.substring(1));
-                    battlefield.Shot(i, j-1);
-                }catch (Exception exception){
-                    textArea.setText("Error");
-                }
-                String str = battlefield.ShootingMapToString();
-                textArea.setText(str);
-                if(battlefield.numberFilledCells==0){
-                    JOptionPane.showMessageDialog(frame, "You win!!!");
-                }
+
             }
         });
-        battlefield.printBattlefield();
-        battlefield.printShootingMap();
-
-        battlefieldInterface.setLayout(new GridLayout(11,11));
-        char[] chars = {'A','B','C','D','E','F','G','H','I','J'};
-        for(int i=-1;i<10;i++)
-            for(int j=-1;j<10;j++) {
-                if(i==-1){
-                    if(j==-1) battlefieldInterface.add(new JLabel());
-                    else battlefieldInterface.add(new JLabel(chars[j]+"", SwingConstants.CENTER));
-                }
-                else
-                if(j==-1) battlefieldInterface.add(new JLabel(i+"",SwingConstants.CENTER));
-                else{
-                    shootingMap[i][j] = new JButton("~");
-                    battlefieldInterface.add(shootingMap[i][j]);
-                    shootingMap[i][j].addActionListener(new BattlefieldCell(battlefield,shootingMap,i,j));
-                }
-            }
 
         shotPanel.setLayout(new BorderLayout(0, 0));
         shotPanel.add(BorderLayout.NORTH, new JPanel());
